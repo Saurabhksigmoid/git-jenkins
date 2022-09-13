@@ -16,5 +16,5 @@ def display_usage(cpu_usage,mem_usage,bars=50):
  
 while True:
  
-    print(f'CPU usage is {psutil.cpu_percent()}, Memory usage is {psutil.virtual_memory().percent},30')
+   print(if'CPU usage is {psutil.cpu_percent()}, Memory usage is {psutil.virtual_memory().percent},30')
     time.sleep(10)
