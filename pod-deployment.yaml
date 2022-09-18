@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: pod-deployment
+   labels:
+      app: pod-deployment
+spec:
+   replicas: 2
+   selector:
+      matchLabels:
+         app: pod-deployment
+   template:
+      metadata:
+         labels:
+            app: pod-deployment
+      spec:
+         imagePullSecrets:
+         - name: jenkins-secret
+         containers:
+         - name: pod1
+           image: saurabhkambli/jenkins-assignment:v1
+           imagePullPolicy: Always
+           
+             

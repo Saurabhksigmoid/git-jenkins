@@ -1,0 +1,19 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps { 
+                minikube start
+                kubectl create secret docker-registry jenkins-secret --docker-server=https://index.docker.io/v1/ --docker-username=saurabhkambli --docker-password=dckr_pat_pfa3FdRnPbmYk9Sbc2XEHsCuDyo --docker-email=saurabh.kambli@sigmoidanalyics.com
+                kubectl apply -f pod-deployment.yaml
+                kubectl get pod
+            }
+        }
+        stage('Deploy') {
+            steps { 
+                kubectl exec -it pod-deployment* /bin/bash
+                python3 code.py
+            }
+        }
+    }
+}
