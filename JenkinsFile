@@ -1,18 +1,32 @@
 pipeline {
     agent any
+    environment {
+        DOCKERCRED=credentials(dockerhub)
+    }
+
     stages {
-        stage('Build') {
-            steps { 
-                minikube start
-                kubectl create secret docker-registry jenkins-secret --docker-server=https://index.docker.io/v1/ --docker-username=saurabhkambli --docker-password=dckr_pat_pfa3FdRnPbmYk9Sbc2XEHsCuDyo --docker-email=saurabh.kambli@sigmoidanalyics.com
-                kubectl apply -f pod-deployment.yaml
-                kubectl get pod
+        stage('Build docker image') {
+            steps {
+                script{
+                    sh 'docker build . -t jenkins-assignment:v1'
+                    echo 'Image created'
+                    sh 'echo $DOCKERCRED_PSW | docker login -u $DOCKERCRED_USR --password-stdin'
+                    sh 'docker tag jenkins-assignment:v1 saurabhkambli/jenkins-assignment:v1'
+                    sh 'docker push saurabhkambli/jenkins-assignment:v1'
+                    echo 'Image pushed sucessfully'
+
+                }    
             }
         }
         stage('Deploy') {
-            steps { 
+            steps {
+                sh '''
+                minikube start
+                kubectl get pods
+                kubectl apply -f pod-deployment.yaml 
                 kubectl exec -it pod-deployment* /bin/bash
                 python3 code.py
+                '''
             }
         }
     }
