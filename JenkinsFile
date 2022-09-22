@@ -24,8 +24,7 @@ pipeline {
                 minikube start
                 kubectl get pods
                 kubectl apply -f pod-deployment.yaml 
-                kubectl exec -it pod-deployment* /bin/bash
-                python3 code.py
+                kubectl get pods
                 '''
             }
         }
