@@ -32,13 +32,13 @@ pipeline {
 
         success {
 
-            emailext body: 'Pipeline executed successfully', recipientProviders: [developers()], subject: 'Pipeline executed successfully', to: 'saurabh.kambli@sigmoidanalytics.com'
+            emailext body: 'Pipeline executed successfully', recipientProviders: [developers()], subject: 'Pipeline executed successfully', to: 'skambli08@gmail.com'
 
         }
 
         failure {
 
-            emailext body: 'Pipeline failed', recipientProviders: [developers()], subject: 'Pipeline failed', to: 'saurabh.kambli@sigmoidanalytics.com'
+            emailext body: 'Pipeline failed', recipientProviders: [developers()], subject: 'Pipeline failed', to: 'skambli08@gmail.com'
 
         }
 
